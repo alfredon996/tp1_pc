@@ -12,17 +12,19 @@ public class Moving implements Runnable {
 
     @Override
     public void run() {
-        Img image = container.getRandomImage();
-        if (image != null && image.getUpgrades() == 3 && image.isResized()) {
-
-            try {
-                Thread.sleep((long) (Math.random()) + 10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while(true){
+            Img image = container.getRandomImage();
+            if (image != null && image.getUpgrades() == 3 && image.isResized()) {
+    
+                try {
+                    Thread.sleep((long) (Math.random()) + 1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+    
+                container.removeImage();
+                containerFinal.addImage(image);
             }
-
-            container.removeImage();
-            containerFinal.addImage(image);
         }
     }
 

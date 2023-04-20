@@ -10,9 +10,9 @@ public class Creator implements Runnable {
 
     @Override
     public void run() {
-        while(container.size()<10){
+        while(container.size()<100){
             try {
-                Thread.sleep((long) (Math.random()) + 10);
+                Thread.sleep((long) (Math.random()) + 1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
