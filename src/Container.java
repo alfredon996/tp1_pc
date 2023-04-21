@@ -3,10 +3,10 @@ import java.util.List;
 
 public class Container {
     private final List<Img> images;
-    private int InsertedCount;  // Cantidad de imagenes agregadas al contenedor
-    private int ImprovedCount;  // Cantidad de imagenes mejoradas en el contenedor
-    private int ResizedCount;   // Cantidad de imagenes ajustadas en el contenedor
-    private int MovedCount;     // Cantidad de imagenes movidas de contenedor
+    private int InsertedCount;
+    private int ImprovedCount;
+    private int ResizedCount;
+    private int MovedCount;
 
     public Container() {
         this.images = new ArrayList<>();
@@ -17,22 +17,20 @@ public class Container {
     }
 
     public synchronized void addImage(Img image) {
-        if (this.InsertedCount >= 100){
-            ;
-        }else{
+        if (this.InsertedCount < 100){
             this.images.add(image);
             imageInserted();
         }
     }
 
-    public Img getRandomImage() {
-        if (this.images.size() == 0) {
+    public synchronized Img getRandomImage() {
+        if (this.images.isEmpty()) {
             return null;
         }        
         return images.get((int) (Math.random() * this.images.size()));
     }
 
-    public void removeImage(Img image) {
+    public synchronized void removeImage(Img image) {
         this.images.remove(image);
         imageMoved();
     }   

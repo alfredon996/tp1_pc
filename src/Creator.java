@@ -15,7 +15,7 @@ public class Creator implements Runnable {
                 break;
             }
             try {
-                Thread.sleep((long) (Math.random()));
+                Thread.sleep((long) (Math.random() + 10));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -1,16 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        // Definimos la cantida de hilos del programa
+
         int CREATOR_THREADS = 2;
         int IMPROVEMENT_THREADS = 3;
         int RESIZING_THREADS = 3;
         int MOVING_THREADS = 2;
 
-        // Creamos los contenedores
         Container container = new Container();
         Container container_final = new Container();
 
-        // Creamos y damos start a los hilos
         Thread[] creatorThreads = new Thread[CREATOR_THREADS];
         for (int i = 0; i < creatorThreads.length; i++) {
             creatorThreads[i] = new Thread(new Creator(container,i));
@@ -30,7 +28,6 @@ public class Main {
         for (int i = 0; i < movingThreads.length; i++) {
             movingThreads[i] = new Thread(new Moving(container,container_final,i));
         }
-        
 
         for (Thread thread : creatorThreads) {
             thread.start();
@@ -50,7 +47,7 @@ public class Main {
         while (flag) {
 
             try {
-                Thread.sleep(5);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -73,26 +70,29 @@ public class Main {
                 System.out.println("Moving " + thread.getName() + " is " + thread.getState());
             }
 
-            // Preguntamos si alguno de los hilos sigue vivo
             flag = false;
             for (Thread thread : creatorThreads) {
-                if(thread.isAlive()){
+                if (thread.isAlive()) {
                     flag = true;
+                    break;
                 }
             }
             for (Thread thread : improvementThreads) {
-                if(thread.isAlive()){
+                if (thread.isAlive()) {
                     flag = true;
+                    break;
                 }
             }
             for (Thread thread : resizingThreads) {
-                if(thread.isAlive()){
+                if (thread.isAlive()) {
                     flag = true;
+                    break;
                 }
             }
             for (Thread thread : movingThreads) {
-                if(thread.isAlive()){
+                if (thread.isAlive()) {
                     flag = true;
+                    break;
                 }
             }
         }

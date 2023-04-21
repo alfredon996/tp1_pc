@@ -13,20 +13,20 @@ public class Moving implements Runnable {
     @Override
     public void run() {
         while(true){
+            if(this.container.getMovedCount()>=100){
+                break;
+            }
             Img image = container.getRandomImage();
             if (image != null) {
                 if(image.getUpgrades() == 3 && image.isResized() && image.getLock().tryLock()){
                     try {
-                        Thread.sleep((long) (Math.random()));
+                        Thread.sleep((long) (Math.random() + 10));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     this.container.removeImage(image);
                     this.containerFinal.addImage(image);
                     image.getLock().unlock();
-                    if(this.container.getMovedCount()>=100){
-                        break;
-                    }
                 }
             }
         }

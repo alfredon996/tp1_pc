@@ -11,11 +11,14 @@ public class Improvements implements Runnable {
     @Override
     public void run() {
         while (true) {
+            if(this.container.getImprovedCount()>=100){
+                break;
+            }
             Img image = this.container.getRandomImage();
             if (image != null) {
                 if (image.getUpgrades() != 3 && !image.getReview(name) && image.getLock().tryLock()) {
                     try {
-                        Thread.sleep((long) (Math.random()));
+                        Thread.sleep((long) (Math.random() + 10));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -25,9 +28,6 @@ public class Improvements implements Runnable {
                         this.container.imageImproved();
                     }
                     image.getLock().unlock();
-                    if(this.container.getImprovedCount()>=100){
-                        break;
-                    }
                 }
             }
         }
