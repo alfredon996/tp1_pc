@@ -6,8 +6,9 @@ public class Main {
         int RESIZING_THREADS = 3;
         int MOVING_THREADS = 2;
 
-        // Creamos el contenedor inicial
+        // Creamos los contenedores
         Container container = new Container();
+        Container container_final = new Container();
 
         // Creamos y damos start a los hilos
         Thread[] creatorThreads = new Thread[CREATOR_THREADS];
@@ -27,7 +28,7 @@ public class Main {
 
         Thread[] movingThreads = new Thread[MOVING_THREADS];
         for (int i = 0; i < movingThreads.length; i++) {
-            movingThreads[i] = new Thread(new Moving(container,i));
+            movingThreads[i] = new Thread(new Moving(container,container_final,i));
         }
         
 
@@ -38,10 +39,10 @@ public class Main {
             thread.start();
         }
         for (Thread thread : resizingThreads) {
-            //thread.start();
+            thread.start();
         }
         for (Thread thread : movingThreads) {
-            //thread.start();
+            thread.start();
         }
         
         boolean flag = true;
@@ -49,7 +50,7 @@ public class Main {
         while (flag) {
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -4,26 +4,30 @@ public class Moving implements Runnable {
     private Container container;
     private Container containerFinal;
 
-    public Moving(Container container, int name) {
+    public Moving(Container container,Container containerFinal ,int name) {
         this.name = name;
         this.container = container;
-        this.containerFinal = new Container();
+        this.containerFinal = containerFinal;
     }
 
     @Override
     public void run() {
         while(true){
             Img image = container.getRandomImage();
-            if (image != null && image.getUpgrades() == 3 && image.isResized()) {
-    
-                try {
-                    Thread.sleep((long) (Math.random()) + 1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            if (image != null) {
+                if(image.getUpgrades() == 3 && image.isResized() && image.getLock().tryLock()){
+                    try {
+                        Thread.sleep((long) (Math.random()));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    this.container.removeImage(image);
+                    this.containerFinal.addImage(image);
+                    image.getLock().unlock();
+                    if(this.container.getMovedCount()>=100){
+                        break;
+                    }
                 }
-    
-                container.removeImage();
-                containerFinal.addImage(image);
             }
         }
     }

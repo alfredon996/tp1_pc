@@ -11,15 +11,15 @@ public class Creator implements Runnable {
     @Override
     public void run() {
         while (true) {
+            if(this.container.getInsertedCount()>=100){
+                break;
+            }
             try {
                 Thread.sleep((long) (Math.random()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             Img image = new Img();
-            if(this.container.getInsertedCount()>=100){
-                break;
-            }
             this.container.addImage(image);
         }
     }

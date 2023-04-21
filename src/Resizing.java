@@ -11,18 +11,22 @@ public class Resizing implements Runnable {
     @Override
     public void run() {
         while (true) {
-            Img image = container.getRandomImage();
-            if (image != null && image.getUpgrades() == 3 && !image.isResized()) {
-
-                try {
-                    Thread.sleep((long) (Math.random()) + 1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            Img image = this.container.getRandomImage();
+            if (image != null) {
+                if (image.getUpgrades() == 3 && !image.isResized() && image.getLock().tryLock()) {
+                    try {
+                        Thread.sleep((long) (Math.random()));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    image.setResized();
+                    this.container.imageResized();
+                    image.getLock().unlock();
+                    if(this.container.getResizedCount()>=100){
+                        break;
+                    }
                 }
 
-                image.setResized();
-                container.imageResized();
-                container.addImage(image);
             }
         }
     }

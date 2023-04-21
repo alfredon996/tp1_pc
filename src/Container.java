@@ -17,16 +17,25 @@ public class Container {
     }
 
     public synchronized void addImage(Img image) {
-        this.images.add(image);
-        imageInserted();
+        if (this.InsertedCount >= 100){
+            ;
+        }else{
+            this.images.add(image);
+            imageInserted();
+        }
     }
 
-    public synchronized Img getRandomImage() {
-        if (images.isEmpty()) {
+    public Img getRandomImage() {
+        if (this.images.size() == 0) {
             return null;
-        }
+        }        
         return images.get((int) (Math.random() * this.images.size()));
     }
+
+    public void removeImage(Img image) {
+        this.images.remove(image);
+        imageMoved();
+    }   
 
     public synchronized void imageInserted() {
         this.InsertedCount++;
@@ -58,8 +67,5 @@ public class Container {
 
     public int getMovedCount() {
         return MovedCount;
-    }
-
-    public synchronized void removeImage() {
     }
 }
