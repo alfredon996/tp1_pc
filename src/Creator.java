@@ -10,14 +10,16 @@ public class Creator implements Runnable {
 
     @Override
     public void run() {
-        while(container.size()<100){
+        while (true) {
             try {
-                Thread.sleep((long) (Math.random()) + 1);
+                Thread.sleep((long) (Math.random()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-    
             Img image = new Img();
+            if(this.container.getInsertedCount()>=100){
+                break;
+            }
             this.container.addImage(image);
         }
     }

@@ -3,21 +3,21 @@ import java.util.List;
 
 public class Container {
     private final List<Img> images;
-    private int InsertedCount;
-    private int ImprovedCount;
-    private int ResizedCount;
-    private int MovedCount;
+    private int InsertedCount;  // Cantidad de imagenes agregadas al contenedor
+    private int ImprovedCount;  // Cantidad de imagenes mejoradas en el contenedor
+    private int ResizedCount;   // Cantidad de imagenes ajustadas en el contenedor
+    private int MovedCount;     // Cantidad de imagenes movidas de contenedor
 
     public Container() {
-        images = new ArrayList<>();
-        InsertedCount = 0;
-        ImprovedCount = 0;
-        ResizedCount = 0;
-        MovedCount = 0;
+        this.images = new ArrayList<>();
+        this.InsertedCount = 0;
+        this.ImprovedCount = 0;
+        this.ResizedCount = 0;
+        this.MovedCount = 0;
     }
 
     public synchronized void addImage(Img image) {
-        images.add(image);
+        this.images.add(image);
         imageInserted();
     }
 
@@ -25,40 +25,29 @@ public class Container {
         if (images.isEmpty()) {
             return null;
         }
-
-        imagenTaken();
-        int index = (int) (Math.random() * images.size());
-        return images.remove(index);
-    }
-
-    public synchronized boolean removeImage() {
-        imageMoved();
+        return images.get((int) (Math.random() * this.images.size()));
     }
 
     public synchronized void imageInserted() {
-        InsertedCount += 1;
-    }
-
-    public synchronized void imagenTaken() {
-        InsertedCount -= 1;
+        this.InsertedCount++;
     }
 
     public synchronized void imageImproved() {
-        ImprovedCount += 1;
+        this.ImprovedCount++;
     }
 
     public synchronized void imageResized() {
-        ResizedCount += 1;
+        this.ResizedCount++;
     }
 
     public synchronized void imageMoved() {
-        MovedCount += 1;
+        this.MovedCount++;
     }
 
     public int getInsertedCount() {
         return InsertedCount;
     }
-
+    
     public int getImprovedCount() {
         return ImprovedCount;
     }
@@ -70,8 +59,7 @@ public class Container {
     public int getMovedCount() {
         return MovedCount;
     }
-    
-    public int size() {
-        return images.size();
+
+    public synchronized void removeImage() {
     }
 }

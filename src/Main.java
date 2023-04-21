@@ -1,17 +1,20 @@
 public class Main {
     public static void main(String[] args) {
+        // Definimos la cantida de hilos del programa
         int CREATOR_THREADS = 2;
         int IMPROVEMENT_THREADS = 3;
         int RESIZING_THREADS = 3;
         int MOVING_THREADS = 2;
 
+        // Creamos el contenedor inicial
         Container container = new Container();
 
+        // Creamos y damos start a los hilos
         Thread[] creatorThreads = new Thread[CREATOR_THREADS];
         for (int i = 0; i < creatorThreads.length; i++) {
             creatorThreads[i] = new Thread(new Creator(container,i));
         }
-
+        
         Thread[] improvementThreads = new Thread[IMPROVEMENT_THREADS];
         for (int i = 0; i < improvementThreads.length; i++) {
             improvementThreads[i] = new Thread(new Improvements(container,i));
@@ -26,6 +29,7 @@ public class Main {
         for (int i = 0; i < movingThreads.length; i++) {
             movingThreads[i] = new Thread(new Moving(container,i));
         }
+        
 
         for (Thread thread : creatorThreads) {
             thread.start();
@@ -34,23 +38,22 @@ public class Main {
             thread.start();
         }
         for (Thread thread : resizingThreads) {
-            thread.start();
+            //thread.start();
         }
         for (Thread thread : movingThreads) {
-            thread.start();
+            //thread.start();
         }
-
+        
         boolean flag = true;
-        // Print status of each thread
+        // LOG
         while (flag) {
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            // LOG
             System.out.println("Cantidad de imágenes insertadas en el contenedor: " + container.getInsertedCount());
             System.out.println("Cantidad de imágenes mejoradas completamente: " + container.getImprovedCount());
             System.out.println("Cantidad de imágenes ajustadas: " + container.getResizedCount());
@@ -69,6 +72,7 @@ public class Main {
                 System.out.println("Moving " + thread.getName() + " is " + thread.getState());
             }
 
+            // Preguntamos si alguno de los hilos sigue vivo
             flag = false;
             for (Thread thread : creatorThreads) {
                 if(thread.isAlive()){
