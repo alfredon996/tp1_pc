@@ -23,12 +23,4 @@ public class Creator implements Runnable {
             this.container.addImage(image);
         }
     }
-
-    public int getName() {
-        return name;
-    }
-
-    public Container getContainer() {
-        return container;
-    }
 }

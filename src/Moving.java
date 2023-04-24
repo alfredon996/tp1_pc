@@ -31,17 +31,4 @@ public class Moving implements Runnable {
             }
         }
     }
-
-    public int getName() {
-        return name;
-    }
-
-    public Container getContainer() {
-        return container;
-    }
-
-    public Container getConteinerFinal() {
-        return containerFinal;
-    }
-
 }

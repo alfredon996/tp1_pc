@@ -32,12 +32,4 @@ public class Improvements implements Runnable {
             }
         }
     }
-
-    public int getName() {
-        return name;
-    }
-
-    public Container getContainer() {
-        return container;
-    }
 }

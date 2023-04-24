@@ -3,6 +3,12 @@ import java.util.List;
 
 public class Container {
     private final List<Img> images;
+    /*
+        InsertedCount: Imagenes agregadas al contenedor
+        ImprovedCount: Imagenes mejoradas por los Improvements
+        ResizedCount: Imagenes ajustadas
+        MovedCount: Imagenes tomadas y borradas del contenedor y pasadas a otro
+     */
     private int InsertedCount;
     private int ImprovedCount;
     private int ResizedCount;

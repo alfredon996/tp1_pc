@@ -30,12 +30,4 @@ public class Resizing implements Runnable {
             }
         }
     }
-
-    public int getName() {
-        return name;
-    }
-
-    public Container getContainer() {
-        return container;
-    }
 }

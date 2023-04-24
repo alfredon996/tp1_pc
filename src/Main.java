@@ -1,5 +1,5 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         int CREATOR_THREADS = 2;
         int IMPROVEMENT_THREADS = 3;
@@ -29,6 +29,8 @@ public class Main {
             movingThreads[i] = new Thread(new Moving(container,container_final,i));
         }
 
+        Thread LOG = new Thread(new Log(creatorThreads,improvementThreads,resizingThreads,movingThreads,container,container_final));
+
         for (Thread thread : creatorThreads) {
             thread.start();
         }
@@ -41,60 +43,8 @@ public class Main {
         for (Thread thread : movingThreads) {
             thread.start();
         }
-        
-        boolean flag = true;
-        // LOG
-        while (flag) {
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("Cantidad de imágenes insertadas en el contenedor: " + container.getInsertedCount());
-            System.out.println("Cantidad de imágenes mejoradas completamente: " + container.getImprovedCount());
-            System.out.println("Cantidad de imágenes ajustadas: " + container.getResizedCount());
-            System.out.println("Cantidad de imágenes que han finalizado el último proceso: " + container.getMovedCount());
-
-            for (Thread thread : creatorThreads) {
-                System.out.println("Creator " + thread.getName() + " is " + thread.getState());
-            }
-            for (Thread thread : improvementThreads) {
-                System.out.println("Improvements " + thread.getName() + " is " + thread.getState());
-            }
-            for (Thread thread : resizingThreads) {
-                System.out.println("Resizing " + thread.getName() + " is " + thread.getState());
-            }
-            for (Thread thread : movingThreads) {
-                System.out.println("Moving " + thread.getName() + " is " + thread.getState());
-            }
-
-            flag = false;
-            for (Thread thread : creatorThreads) {
-                if (thread.isAlive()) {
-                    flag = true;
-                    break;
-                }
-            }
-            for (Thread thread : improvementThreads) {
-                if (thread.isAlive()) {
-                    flag = true;
-                    break;
-                }
-            }
-            for (Thread thread : resizingThreads) {
-                if (thread.isAlive()) {
-                    flag = true;
-                    break;
-                }
-            }
-            for (Thread thread : movingThreads) {
-                if (thread.isAlive()) {
-                    flag = true;
-                    break;
-                }
-            }
-        }
+        LOG.start();
+        LOG.join();
     }
 }
