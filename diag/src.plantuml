@@ -1,0 +1,97 @@
+@startuml
+
+title __SRC's Class Diagram__\n
+
+    class Container {
+        - ImprovedCount : int
+        - InsertedCount : int
+        - MovedCount : int
+        - ResizedCount : int
+        - images : List<Img>
+        + Container()
+        + addImage()
+        + getImprovedCount()
+        + getInsertedCount()
+        + getMovedCount()
+        + getRandomImage()
+        + getResizedCount()
+        + imageImproved()
+        + imageInserted()
+        + imageMoved()
+        + imageResized()
+        + removeImage()
+    }
+
+
+    class Creator {
+        - name : int
+        + Creator()
+        + run()
+    }
+
+
+    class Img {
+        - lock : ReentrantLock
+        - resize : boolean
+        - reviews : boolean[]
+        - upgrades : int
+        + Img()
+        + getLock()
+        + getReview()
+        + getUpgrades()
+        + isResized()
+        + setResized()
+        + setUpgrades()
+    }
+
+
+    class Improvements {
+        - name : int
+        + Improvements()
+        + run()
+    }
+
+
+    class Log {
+        - creatorThreads : Thread[]
+        - improvementThreads : Thread[]
+        - movingThreads : Thread[]
+        - resizingThreads : Thread[]
+        + Log()
+        + run()
+    }
+
+
+    class Main {
+        {static} + main()
+    }
+
+
+    class Moving {
+        - name : int
+        + Moving()
+        + run()
+    }
+
+
+    class Resizing {
+        - name : int
+        + Resizing()
+        + run()
+    }
+
+
+  Creator .up.|> java.lang.Runnable
+  Creator o-- Container : container
+  Improvements .up.|> java.lang.Runnable
+  Improvements o-- Container : container
+  Log .up.|> java.lang.Runnable
+  Log o-- Container : container
+  Log o-- Container : containerFinal
+  Moving .up.|> java.lang.Runnable
+  Moving o-- Container : container
+  Moving o-- Container : containerFinal
+  Resizing .up.|> java.lang.Runnable
+  Resizing o-- Container : container
+
+@enduml

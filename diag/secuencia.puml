@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+'Diagrama de secuencia, se puede renderizar instalando el plugin PlantUML de IntelliJ
+
+autonumber
+
+Actor -> Creator: run
+
+Creator -> Img: <<create>>
+Creator  <-- Img
+
+Creator -> Container : addImage
+Creator <-- Container
+
+Container -> Container: imageInserted
+
+Actor -> Improvements: run
+Improvements -> Container: getRandomImage
+Container --> Improvements
+critical
+Improvements -> Img: setUpgrades
+alt 3 mejoras
+Img -> Container: imageImproved
+Container --> Improvements
+else menos de 3 mejoras
+Img --> Improvements
+end
+end
+
+
+Actor -> Resizing:run
+Resizing -> Container: getRandomImage
+Container --> Resizing
+alt si el contenedor no esta vacío \n la imagen ha sido mejorada 3 veces \n no ha sido ajustada \n y no esta bloqueada por otro hilo
+Resizing -> Img: setResized
+Img --> Resizing
+Resizing -> Container: imageResized
+end
+
+@enduml
