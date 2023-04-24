@@ -41,7 +41,7 @@ public class Container {
         imageMoved();
     }   
 
-    public synchronized void imageInserted() {
+    public void imageInserted() {
         this.InsertedCount++;
     }
 
@@ -53,7 +53,7 @@ public class Container {
         this.ResizedCount++;
     }
 
-    public synchronized void imageMoved() {
+    public void imageMoved() {
         this.MovedCount++;
     }
 

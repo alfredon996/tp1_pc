@@ -18,7 +18,7 @@ public class Improvements implements Runnable {
             if (image != null) {
                 if (image.getUpgrades() != 3 && !image.getReview(name) && image.getLock().tryLock()) {
                     try {
-                        Thread.sleep((long) (Math.random() + 10));
+                        Thread.sleep((long) (Math.random() + 100));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

@@ -1,12 +1,10 @@
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Img{
-
     private final ReentrantLock lock;
-    private int upgrades;       // Cantidad de mejoras. (Como maximo 3)
-    private boolean resize;     // Indica si ya fue ajustada o no
-    private boolean[] reviews;  // Utilizado para saber cual de los improvements reviso la imagen
-
+    private int upgrades;
+    private boolean resize;
+    private boolean[] reviews;
     public Img(){
         this.lock = new ReentrantLock();
         this.upgrades = 0;
@@ -17,24 +15,19 @@ public class Img{
     public int getUpgrades() {
         return upgrades;
     }
-
     public void setUpgrades(int name) {
         this.upgrades += 1;
         this.reviews[name] = true;
     }
-
     public boolean isResized() {
         return resize;
     }
-
     public void setResized() {
         this.resize = true;
     }
-
     public boolean getReview(int name) {
         return reviews[name];
     }
-
     public ReentrantLock getLock() {
         return lock;
     }
