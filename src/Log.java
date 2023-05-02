@@ -1,3 +1,13 @@
+/**
+ * El sistema debe contar con un LOG con fines estadísticos, el cual registre cada 500
+ * milisegundos en un archivo:
+ * - Cantidad de imágenes insertadas en el contenedor.
+ * - Cantidad de imágenes mejoradas completamente.
+ * - Cantidad de imágenes ajustadas.
+ * - Cantidad de imágenes que han finalizado el último proceso.
+ * - El estado de cada hilo del sistema.
+ */
+
 import java.util.Date;
 public class Log implements Runnable{
     private final Thread[] creatorThreads;
@@ -24,11 +34,11 @@ public class Log implements Runnable{
                 e.printStackTrace();
             }
 
-            System.out.println("Cantidad de imágenes insertadas en el contenedor: " + container.getInsertedCount());
-            System.out.println("Cantidad de imágenes mejoradas completamente: " + container.getImprovedCount());
-            System.out.println("Cantidad de imágenes ajustadas: " + container.getResizedCount());
-            System.out.println("Cantidad de imágenes que han finalizado el último proceso: " + container.getMovedCount());
-            System.out.println("Cantidad de imágenes insertadas en el contenedor final: " + containerFinal.getInsertedCount());
+            //System.out.println("Cantidad de imágenes insertadas en el contenedor: " + container.getInsertedCount());
+            //System.out.println("Cantidad de imágenes mejoradas completamente: " + container.getImprovedCount());
+            //System.out.println("Cantidad de imágenes ajustadas: " + container.getResizedCount());
+            //System.out.println("Cantidad de imágenes que han finalizado el último proceso: " + container.getMovedCount());
+            //System.out.println("Cantidad de imágenes insertadas en el contenedor final: " + containerFinal.getInsertedCount());
 
             for (Thread thread : creatorThreads) {
                 System.out.println("Creator " + thread.getName() + " is " + thread.getState());

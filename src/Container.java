@@ -3,29 +3,19 @@ import java.util.List;
 
 public class Container {
     private final List<Img> images;
-    /*
-        InsertedCount: Imagenes agregadas al contenedor
-        ImprovedCount: Imagenes mejoradas por los Improvements
-        ResizedCount: Imagenes ajustadas
-        MovedCount: Imagenes tomadas y borradas del contenedor y pasadas a otro
-     */
-    private int InsertedCount;
-    private int ImprovedCount;
-    private int ResizedCount;
-    private int MovedCount;
-
+    private int i;
     public Container() {
         this.images = new ArrayList<>();
-        this.InsertedCount = 0;
-        this.ImprovedCount = 0;
-        this.ResizedCount = 0;
-        this.MovedCount = 0;
+        this.i = 0;
     }
 
     public synchronized void addImage(Img image) {
-        if (this.InsertedCount < 100){
+        if (this.images.size() < 100){
+            /*
+                El contenedor le asigna un nombre a la imagen al ser ingresada
+             */
+            image.setName(this.images.size());
             this.images.add(image);
-            imageInserted();
         }
     }
 
@@ -38,38 +28,15 @@ public class Container {
 
     public synchronized void removeImage(Img image) {
         this.images.remove(image);
-        imageMoved();
-    }   
-
-    public void imageInserted() {
-        this.InsertedCount++;
+    }
+    public int sizeOf(){
+        return this.images.size();
     }
 
-    public synchronized void imageImproved() {
-        this.ImprovedCount++;
+    public void imageResized(){
+        this.i++;
     }
-
-    public synchronized void imageResized() {
-        this.ResizedCount++;
-    }
-
-    public void imageMoved() {
-        this.MovedCount++;
-    }
-
-    public int getInsertedCount() {
-        return InsertedCount;
-    }
-    
-    public int getImprovedCount() {
-        return ImprovedCount;
-    }
-
-    public int getResizedCount() {
-        return ResizedCount;
-    }
-
-    public int getMovedCount() {
-        return MovedCount;
+    public int getI(){
+        return this.i;
     }
 }

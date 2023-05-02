@@ -1,34 +1,52 @@
-import java.util.concurrent.locks.ReentrantLock;
-
-public class Img{
-    private final ReentrantLock lock;
-    private int upgrades;
+public class Img {
+    /**
+     * Los objetos imágen tienen un atributo “improvements” el cual registra cuántos hilos
+     * han tomado el archivo para mejorarlo (proceso 2).
+     * Una imagen no puede pasar a ser ajustada sin antes haber sido mejorada por los 3
+     * hilos del segundo proceso.
+     */
+    private int name;
+    private int improvements;
+    /*
+        resize Indica si la imagen fue ajustada
+     */
     private boolean resize;
-    private boolean[] reviews;
-    public Img(){
-        this.lock = new ReentrantLock();
-        this.upgrades = 0;
-        this.resize = false;
-        this.reviews = new boolean[3];
-    }
+    /*
+        upgrade Indica si la imagen fue actualizada o no por los 3 hilos
+     */
+    private boolean upgrade;
 
-    public int getUpgrades() {
-        return upgrades;
+    public Img() {
+        this.improvements = 0;
+        this.resize = false;
+        this.upgrade = false;
     }
-    public void setUpgrades(int name) {
-        this.upgrades += 1;
-        this.reviews[name] = true;
+    public void setName(int name){
+        this.name = name;
+    }
+    public int getName(){
+        return name;
+    }
+    public int getImprovements() {
+        return improvements;
+    }
+    public synchronized void setUpgrades() {
+        this.improvements++;
+        if(this.improvements == 3){
+            this.upgrade = true;
+        }
+    }
+    public synchronized boolean setResized() {
+        if(this.resize){
+            return false;
+        }
+        this.resize = true;
+        return true;
     }
     public boolean isResized() {
         return resize;
     }
-    public void setResized() {
-        this.resize = true;
-    }
-    public boolean getReview(int name) {
-        return reviews[name];
-    }
-    public ReentrantLock getLock() {
-        return lock;
+    public boolean isUpgrade() {
+        return upgrade;
     }
 }

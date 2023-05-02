@@ -1,3 +1,10 @@
+/**
+ * Las demoras del sistema en sus cuatro procesos deben configurarse de tal manera
+ * de poder procesar 100 imágenes (desde la inserción en el primer contenedor hasta
+ * que son movidas al contenedor final) en un periodo mínimo de 10 segundos y
+ * máximo de 20 segundos.
+ */
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
