@@ -10,19 +10,19 @@
 
 import java.util.Date;
 public class Log implements Runnable{
-    private final Thread[] creatorThreads;
-    private final Thread[] improvementThreads;
-    private final Thread[] resizingThreads;
-    private final Thread[] movingThreads;
-    private final Container container;
-    private final Container containerFinal;
-    public Log(Thread[] creatorThreads,Thread[] improvementThreads,Thread[] resizingThreads,Thread[] movingThreads,Container container,Container containerFinal){
-        this.creatorThreads = creatorThreads;
-        this.improvementThreads = improvementThreads;
-        this.resizingThreads = resizingThreads;
-        this.movingThreads = movingThreads;
-        this.container = container;
-        this.containerFinal = containerFinal;
+    private final Thread[] creadoresThreads;
+    private final Thread[] mejoradoresThreads;
+    private final Thread[] ajustadoresThreads;
+    private final Thread[] movedoresThreads;
+    private final Contenedor ContenedorInicial;
+    private final Contenedor ContenedorFinal;
+    public Log(Thread[] creadoresThreads,Thread[] mejoradoresThreads,Thread[] ajustadoresThreads,Thread[] movedoresThreads,Contenedor ContenedorInicial,Contenedor ContenedorFinal){
+        this.creadoresThreads = creadoresThreads;
+        this.mejoradoresThreads = mejoradoresThreads;
+        this.ajustadoresThreads = ajustadoresThreads;
+        this.movedoresThreads = movedoresThreads;
+        this.ContenedorInicial = ContenedorInicial;
+        this.ContenedorFinal = ContenedorFinal;
     }
     @Override
     public void run(){
@@ -34,45 +34,44 @@ public class Log implements Runnable{
                 e.printStackTrace();
             }
 
-            //System.out.println("Cantidad de imágenes insertadas en el contenedor: " + container.getInsertedCount());
-            //System.out.println("Cantidad de imágenes mejoradas completamente: " + container.getImprovedCount());
-            //System.out.println("Cantidad de imágenes ajustadas: " + container.getResizedCount());
-            //System.out.println("Cantidad de imágenes que han finalizado el último proceso: " + container.getMovedCount());
-            //System.out.println("Cantidad de imágenes insertadas en el contenedor final: " + containerFinal.getInsertedCount());
+            System.out.println("Cantidad de imágenes insertadas en el contenedor: " + this.ContenedorInicial.getImagenesIngresadas());
+            System.out.println("Cantidad de imágenes mejoradas completamente: " + (this.ContenedorInicial.getImagenesMejoradas()/3));
+            System.out.println("Cantidad de imágenes ajustadas: " + this.ContenedorInicial.getImagenesAjustadas());
+            System.out.println("Cantidad de imágenes que han finalizado el último proceso: " + this.ContenedorInicial.getImagenesEliminadas());
 
-            for (Thread thread : creatorThreads) {
-                System.out.println("Creator " + thread.getName() + " is " + thread.getState());
+            for (Thread thread : creadoresThreads) {
+                System.out.println("Creador " + thread.getName() + " esta " + thread.getState());
             }
-            for (Thread thread : improvementThreads) {
-                System.out.println("Improvements " + thread.getName() + " is " + thread.getState());
+            for (Thread thread : mejoradoresThreads) {
+                System.out.println("Mejorador " + thread.getName() + " esta " + thread.getState());
             }
-            for (Thread thread : resizingThreads) {
-                System.out.println("Resizing " + thread.getName() + " is " + thread.getState());
+            for (Thread thread : ajustadoresThreads) {
+                System.out.println("Ajustador " + thread.getName() + " esta " + thread.getState());
             }
-            for (Thread thread : movingThreads) {
-                System.out.println("Moving " + thread.getName() + " is " + thread.getState());
+            for (Thread thread : movedoresThreads) {
+                System.out.println("Movedor " + thread.getName() + " esta " + thread.getState());
             }
 
             flag = false;
-            for (Thread thread : creatorThreads) {
+            for (Thread thread : creadoresThreads) {
                 if (thread.isAlive()) {
                     flag = true;
                     break;
                 }
             }
-            for (Thread thread : improvementThreads) {
+            for (Thread thread : mejoradoresThreads) {
                 if (thread.isAlive()) {
                     flag = true;
                     break;
                 }
             }
-            for (Thread thread : resizingThreads) {
+            for (Thread thread : ajustadoresThreads) {
                 if (thread.isAlive()) {
                     flag = true;
                     break;
                 }
             }
-            for (Thread thread : movingThreads) {
+            for (Thread thread : movedoresThreads) {
                 if (thread.isAlive()) {
                     flag = true;
                     break;

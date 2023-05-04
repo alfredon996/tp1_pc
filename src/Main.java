@@ -1,57 +1,49 @@
-/**
- * Las demoras del sistema en sus cuatro procesos deben configurarse de tal manera
- * de poder procesar 100 imágenes (desde la inserción en el primer contenedor hasta
- * que son movidas al contenedor final) en un periodo mínimo de 10 segundos y
- * máximo de 20 segundos.
- */
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        int CREATOR_THREADS = 2;
-        int IMPROVEMENT_THREADS = 3;
-        int RESIZING_THREADS = 3;
-        int MOVING_THREADS = 2;
+        int CREADORES_THREADS = 2;
+        int MEJORADORES_THREADS = 3;
+        int AJUSTADORES_THREADS = 3;
+        int MOVEDORES_THREADS = 2;
 
-        Container container = new Container();
-        Container container_final = new Container();
+        Contenedor ContenedorInicial = new Contenedor();
+        Contenedor ContenedorFinal = new Contenedor();
 
-        Thread[] creatorThreads = new Thread[CREATOR_THREADS];
-        for (int i = 0; i < creatorThreads.length; i++) {
-            creatorThreads[i] = new Thread(new Creator(container,i));
-        }
-        
-        Thread[] improvementThreads = new Thread[IMPROVEMENT_THREADS];
-        for (int i = 0; i < improvementThreads.length; i++) {
-            improvementThreads[i] = new Thread(new Improvements(container,i));
+        Thread[] creadoresThreads = new Thread[CREADORES_THREADS];
+        for (int i = 0; i < creadoresThreads.length; i++) {
+            creadoresThreads[i] = new Thread(new Creador(ContenedorInicial, i));
         }
 
-        Thread[] resizingThreads = new Thread[RESIZING_THREADS];
-        for (int i = 0; i < resizingThreads.length; i++) {
-            resizingThreads[i] = new Thread(new Resizing(container,i));
+        Thread[] mejoradoresThreads = new Thread[MEJORADORES_THREADS];
+        for (int i = 0; i < mejoradoresThreads.length; i++) {
+            mejoradoresThreads[i] = new Thread(new Mejorador(ContenedorInicial, i));
         }
 
-        Thread[] movingThreads = new Thread[MOVING_THREADS];
-        for (int i = 0; i < movingThreads.length; i++) {
-            movingThreads[i] = new Thread(new Moving(container,container_final,i));
+        Thread[] ajustadoresThreads = new Thread[AJUSTADORES_THREADS];
+        for (int i = 0; i < ajustadoresThreads.length; i++) {
+            ajustadoresThreads[i] = new Thread(new Ajustadores(ContenedorInicial, i));
         }
 
-        Thread LOG = new Thread(new Log(creatorThreads,improvementThreads,resizingThreads,movingThreads,container,container_final));
+        Thread[] movedoresThreads = new Thread[MOVEDORES_THREADS];
+        for (int i = 0; i < movedoresThreads.length; i++) {
+            movedoresThreads[i] = new Thread(new Movedores(ContenedorInicial, ContenedorFinal, i));
+        }
 
-        for (Thread thread : creatorThreads) {
+        Thread log = new Thread(new Log(creadoresThreads, mejoradoresThreads, ajustadoresThreads, movedoresThreads, ContenedorInicial, ContenedorFinal));
+
+        for (Thread thread : creadoresThreads) {
             thread.start();
         }
-        for (Thread thread : improvementThreads) {
+        for (Thread thread : mejoradoresThreads) {
             thread.start();
         }
-        for (Thread thread : resizingThreads) {
+        for (Thread thread : ajustadoresThreads) {
             thread.start();
         }
-        for (Thread thread : movingThreads) {
+        for (Thread thread : movedoresThreads) {
             thread.start();
         }
-
-        LOG.start();
-        LOG.join();
+        log.start();
+        log.join();
     }
 }
