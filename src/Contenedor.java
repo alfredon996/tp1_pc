@@ -25,6 +25,7 @@ public class Contenedor {
         if (this.ImagenesIngresadas < 100) {
             /*
                 El contenedor le asigna un nombre a la imagen al ser ingresada
+                solo si la imagen fue creada recientemente.
              */
             if (imagen.getName() == -1) imagen.setName(this.imagenes.size());
             /*
@@ -37,17 +38,18 @@ public class Contenedor {
     }
 
     int i = 0;
-    Imagen imagen;
     public synchronized Imagen getImagen(){
         if (!this.imagenes.isEmpty()) {
-            try {
-                i = (int) (Math.random() * (this.ImagenesIngresadas));
-                for(Imagen imagen:this.imagenes){
-                    if(imagen.getName()==i){
-                        return this.imagenes.get(i);
-                    }
+            i = (int) (Math.random() * (this.ImagenesIngresadas));
+            /*
+                No buscamos la imagen por indice aleatorio, la buscamos por nombre aleatorio.
+                Si existe esa imagen dentro del contenedor, la va a retornar.
+                De lo contrario, retorna null.
+             */
+            for(Imagen imagen:this.imagenes){
+                if(imagen.getName()==i){
+                    return imagen;
                 }
-            } catch (IndexOutOfBoundsException ignored) {
             }
         }
         return null;
@@ -72,7 +74,7 @@ public class Contenedor {
         this.ImagenesAjustadas += 1;
     }
 
-    public void setImagenEliminada() {
+    public synchronized void setImagenEliminada() {
         this.ImagenesEliminadas += 1;
     }
 

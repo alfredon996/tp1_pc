@@ -1,13 +1,19 @@
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Imagen {
+    /*
+        Nombre de la imagen
+        Improvements es un atributo de cada imagen que contabiliza cuantos hilos del proceso 2 la han tomado
+        Resize indica si finalizo o no el proceso 3
+        Copy funciona igual que el Resize, pero para el proceso 4
+     */
     private int name;
     private int improvements;
     private boolean resize;
     private boolean copy;
 
     public Imagen() {
-        this.name=-1;
+        this.name = -1;
         this.improvements = 0;
         this.resize = false;
         this.copy = false;
@@ -22,12 +28,12 @@ public class Imagen {
     }
 
     public synchronized boolean setResize(boolean resize) {
-        if(!this.resize) return this.resize = resize;
+        if (!this.resize) return this.resize = resize;
         return false;
     }
 
     public synchronized boolean setCopy(boolean copy) {
-        if(!this.copy) return this.copy = copy;
+        if (!this.copy) return this.copy = copy;
         return false;
     }
 
@@ -42,6 +48,7 @@ public class Imagen {
     public boolean getResize() {
         return resize;
     }
+
     public boolean getCopy() {
         return copy;
     }

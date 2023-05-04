@@ -13,18 +13,23 @@ public class Ajustadores extends Proceso implements Runnable {
             imagen = this.ContenedorInicial.getImagen();
             if (imagen != null) {
                 /*
-                    Pregunto si la imagen fue actualizada por el proceso 2
+                    Pregunto si la imagen fue actualizada por todos
+                    los hilos del proceso 2
                  */
                 if (imagen.getImprovements() == 3) {
                     try {
                         Thread.sleep(30);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    } finally {
-                        if(imagen.setResize(true)){
-                            this.ContenedorInicial.setImagenAjustada();
-                            this.ajustadasCount++;
-                        }
+                    }
+                    /*
+                        Intentamos ajustar el tamaño de la imagen.
+                        De ser posible, modificamos los valores
+                        tanto globales como internos del hilo.
+                     */
+                    if (imagen.setResize(true)) {
+                        this.ContenedorInicial.setImagenAjustada();
+                        this.ajustadasCount++;
                     }
                 }
             }

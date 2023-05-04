@@ -34,10 +34,11 @@ public class Log implements Runnable{
                 e.printStackTrace();
             }
 
-            System.out.println("Cantidad de imágenes insertadas en el contenedor: " + this.ContenedorInicial.getImagenesIngresadas());
+            System.out.println("Cantidad de imágenes insertadas en el Contenedor Inicial: " + this.ContenedorInicial.getImagenesIngresadas());
             System.out.println("Cantidad de imágenes mejoradas completamente: " + (this.ContenedorInicial.getImagenesMejoradas()/3));
             System.out.println("Cantidad de imágenes ajustadas: " + this.ContenedorInicial.getImagenesAjustadas());
             System.out.println("Cantidad de imágenes que han finalizado el último proceso: " + this.ContenedorInicial.getImagenesEliminadas());
+            System.out.println("Cantidad de imágenes insertadas en el Contenedor Final: " + this.ContenedorFinal.getImagenesIngresadas());
 
             for (Thread thread : creadoresThreads) {
                 System.out.println("Creador " + thread.getName() + " esta " + thread.getState());
