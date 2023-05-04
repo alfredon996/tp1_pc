@@ -7,7 +7,7 @@ public class Creador extends Proceso implements Runnable {
     public void run() {
         while (this.ContenedorInicial.getImagenesIngresadas() < 100) {
             try {
-                Thread.sleep(5);
+                Thread.sleep((long) ((Math.random() * 15) + 5) );
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

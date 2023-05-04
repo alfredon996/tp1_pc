@@ -1,5 +1,9 @@
+import java.util.Date;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+
+        System.out.printf("Se inicio el programa: %s\n", new Date());
 
         int CREADORES_THREADS = 2;
         int MEJORADORES_THREADS = 3;

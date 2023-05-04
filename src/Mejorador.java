@@ -23,7 +23,7 @@ public class Mejorador extends Proceso implements Runnable {
                  */
                 if (!this.ImagenesRevisadas[imagen.getName()]) {
                     try {
-                        Thread.sleep(15);
+                        Thread.sleep((long) ((Math.random() * 10) + 15) );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

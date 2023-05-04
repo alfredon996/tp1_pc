@@ -1,12 +1,4 @@
-import java.util.concurrent.locks.ReentrantLock;
-
 public class Imagen {
-    /*
-        Nombre de la imagen
-        Improvements es un atributo de cada imagen que contabiliza cuantos hilos del proceso 2 la han tomado
-        Resize indica si finalizo o no el proceso 3
-        Copy funciona igual que el Resize, pero para el proceso 4
-     */
     private int name;
     private int improvements;
     private boolean resize;

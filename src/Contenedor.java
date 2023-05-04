@@ -38,7 +38,8 @@ public class Contenedor {
     }
 
     int i = 0;
-    public synchronized Imagen getImagen(){
+
+    public synchronized Imagen getImagen() {
         if (!this.imagenes.isEmpty()) {
             i = (int) (Math.random() * (this.ImagenesIngresadas));
             /*
@@ -46,8 +47,8 @@ public class Contenedor {
                 Si existe esa imagen dentro del contenedor, la va a retornar.
                 De lo contrario, retorna null.
              */
-            for(Imagen imagen:this.imagenes){
-                if(imagen.getName()==i){
+            for (Imagen imagen : this.imagenes) {
+                if (imagen.getName() == i) {
                     return imagen;
                 }
             }
@@ -93,5 +94,4 @@ public class Contenedor {
     public int getImagenesEliminadas() {
         return ImagenesEliminadas;
     }
-
 }

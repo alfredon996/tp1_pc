@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class Movedores extends Proceso implements Runnable {
     private Contenedor ContenedorFinal;
     private int movidasCount;
@@ -20,7 +21,7 @@ public class Movedores extends Proceso implements Runnable {
                  */
                 if (imagen.getImprovements() == 3 && imagen.getResize()) {
                     try {
-                        Thread.sleep(45);
+                        Thread.sleep((long) ((Math.random() * 30) + 30) );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
