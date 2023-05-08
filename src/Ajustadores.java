@@ -18,7 +18,7 @@ public class Ajustadores extends Proceso implements Runnable {
                  */
                 if (imagen.getImprovements() == 3) {
                     try {
-                        Thread.sleep((long) ((Math.random() * 25) + 20) );
+                        Thread.sleep((long) ((Math.random() * 170) + 45) );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

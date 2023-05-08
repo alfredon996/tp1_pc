@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Contenedor {
@@ -27,7 +28,7 @@ public class Contenedor {
                 El contenedor le asigna un nombre a la imagen al ser ingresada
                 solo si la imagen fue creada recientemente.
              */
-            if (imagen.getName() == -1) imagen.setName(this.imagenes.size());
+            if (imagen.getName() == -1) imagen.setName(this.ImagenesIngresadas);
             /*
                 Si pudo ingresar la imagen correctamente,
                 se aumenta la cuenta de imagenes en el contenedor
@@ -37,27 +38,30 @@ public class Contenedor {
         }
     }
 
-    int i = 0;
+    int random_name = 0;
+    Imagen imagen;
 
     public synchronized Imagen getImagen() {
         if (!this.imagenes.isEmpty()) {
-            i = (int) (Math.random() * (this.ImagenesIngresadas));
+            random_name = (int) (Math.random() * (this.ImagenesIngresadas));
             /*
                 No buscamos la imagen por indice aleatorio, la buscamos por nombre aleatorio.
                 Si existe esa imagen dentro del contenedor, la va a retornar.
                 De lo contrario, retorna null.
              */
-            for (Imagen imagen : this.imagenes) {
-                if (imagen.getName() == i) {
-                    return imagen;
+            for (Imagen i : this.imagenes) {
+                if (i.getName() == random_name) {
+                    imagen = i;
+                    break;
                 }
             }
+            return imagen;
         }
         return null;
     }
 
     public synchronized void eliminarImagen(Imagen imagen) {
-        this.imagenes.remove(imagenes);
+        this.imagenes.remove(imagen);
     }
 
     public List<Imagen> getList() {

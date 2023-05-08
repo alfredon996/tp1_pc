@@ -21,7 +21,7 @@ public class Movedores extends Proceso implements Runnable {
                  */
                 if (imagen.getImprovements() == 3 && imagen.getResize()) {
                     try {
-                        Thread.sleep((long) ((Math.random() * 30) + 30) );
+                        Thread.sleep((long) ((Math.random() * 75) + 50) );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

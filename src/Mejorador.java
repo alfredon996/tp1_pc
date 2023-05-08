@@ -14,8 +14,10 @@ public class Mejorador extends Proceso implements Runnable {
 
     @Override
     public void run() {
+
         Imagen imagen;
         while (this.mejoradas < 100) {
+
             imagen = this.ContenedorInicial.getImagen();
             if (imagen != null) {
                 /*
@@ -23,7 +25,7 @@ public class Mejorador extends Proceso implements Runnable {
                  */
                 if (!this.ImagenesRevisadas[imagen.getName()]) {
                     try {
-                        Thread.sleep((long) ((Math.random() * 10) + 15) );
+                        Thread.sleep((long) ((Math.random() * 55) + 30) );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
