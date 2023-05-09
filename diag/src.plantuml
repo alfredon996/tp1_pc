@@ -1,97 +1,82 @@
 @startuml
-
-title __SRC's Class Diagram__\n
-
-    class Container {
-        - ImprovedCount : int
-        - InsertedCount : int
-        - MovedCount : int
-        - ResizedCount : int
-        - images : List<Img>
-        + Container()
-        + addImage()
-        + getImprovedCount()
-        + getInsertedCount()
-        + getMovedCount()
-        + getRandomImage()
-        + getResizedCount()
-        + imageImproved()
-        + imageInserted()
-        + imageMoved()
-        + imageResized()
-        + removeImage()
-    }
-
-
-    class Creator {
-        - name : int
-        + Creator()
-        + run()
-    }
-
-
-    class Img {
-        - lock : ReentrantLock
-        - resize : boolean
-        - reviews : boolean[]
-        - upgrades : int
-        + Img()
-        + getLock()
-        + getReview()
-        + getUpgrades()
-        + isResized()
-        + setResized()
-        + setUpgrades()
-    }
-
-
-    class Improvements {
-        - name : int
-        + Improvements()
-        + run()
-    }
-
-
-    class Log {
-        - creatorThreads : Thread[]
-        - improvementThreads : Thread[]
-        - movingThreads : Thread[]
-        - resizingThreads : Thread[]
-        + Log()
-        + run()
-    }
-
-
-    class Main {
-        {static} + main()
-    }
-
-
-    class Moving {
-        - name : int
-        + Moving()
-        + run()
-    }
+class Imagen {
+- int name
+- int improvements
+- boolean resize
+- boolean copy
++ void setName(int)
++ void setImprovements()
++ boolean setResize(boolean)
++ boolean setCopy(boolean)
++ int getName()
++ int getImprovements()
++ boolean getResize()
++ boolean getCopy()
+}
+class Creador {
++ void run()
+}
+class Main {
++ {static} void main(String[])
+}
+class Movedores {
+- Contenedor ContenedorFinal
+- int movidasCount
++ void run()
+}
+class Mejorador {
+- int mejoradas
+- boolean[] ImagenesRevisadas
++ void run()
+}
+abstract class Proceso {
+# int nombre
+# Contenedor ContenedorInicial
++ int getNombre()
++ Contenedor getContenedorInicial()
+}
+class Log {
+- Thread[] creadoresThreads
+- Thread[] mejoradoresThreads
+- Thread[] ajustadoresThreads
+- Thread[] movedoresThreads
+- Contenedor ContenedorInicial
+- Contenedor ContenedorFinal
++ void run()
+}
+class Contenedor {
+- List<Imagen> imagenes
+- int ImagenesIngresadas
+- int ImagenesMejoradas
+- int ImagenesAjustadas
+- int ImagenesEliminadas
+~ int random_name
+~ Imagen imagen
++ void agregarImagen(Imagen)
++ Imagen getImagen()
++ void eliminarImagen(Imagen)
++ List<Imagen> getList()
++ void setImagenMejorada()
++ void setImagenAjustada()
++ void setImagenEliminada()
++ int getImagenesIngresadas()
++ int getImagenesMejoradas()
++ int getImagenesAjustadas()
++ int getImagenesEliminadas()
+}
+class Ajustadores {
+- int ajustadasCount
++ void run()
+}
 
 
-    class Resizing {
-        - name : int
-        + Resizing()
-        + run()
-    }
-
-
-  Creator .up.|> java.lang.Runnable
-  Creator o-- Container : container
-  Improvements .up.|> java.lang.Runnable
-  Improvements o-- Container : container
-  Log .up.|> java.lang.Runnable
-  Log o-- Container : container
-  Log o-- Container : containerFinal
-  Moving .up.|> java.lang.Runnable
-  Moving o-- Container : container
-  Moving o-- Container : containerFinal
-  Resizing .up.|> java.lang.Runnable
-  Resizing o-- Container : container
-
+java.lang.Runnable <|.. Creador
+Proceso <|-- Creador
+java.lang.Runnable <|.. Movedores
+Proceso <|-- Movedores
+java.lang.Runnable <|.. Mejorador
+Proceso <|-- Mejorador
+java.lang.Runnable <|.. Log
+java.lang.Runnable <|.. Ajustadores
+Proceso <|-- Ajustadores
 @enduml
