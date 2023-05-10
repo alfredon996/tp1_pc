@@ -4,37 +4,94 @@
 
 autonumber
 
-Actor -> Creator: run
+Main -> Creador: run
+par
+Creador -> Imagen: <<create>>
+Creador  <-- Imagen
 
-Creator -> Img: <<create>>
-Creator  <-- Img
 
-Creator -> Container : addImage
-Creator <-- Container
-
-Container -> Container: imageInserted
-
-Actor -> Improvements: run
-Improvements -> Container: getRandomImage
-Container --> Improvements
 critical
-Improvements -> Img: setUpgrades
-alt 3 mejoras
-Img -> Container: imageImproved
-Container --> Improvements
-else menos de 3 mejoras
-Img --> Improvements
-end
-end
+Creador -> ContenedorInicial : agregarImagen
+Creador <-- ContenedorInicial
+end critical
+
+end par
+
+Main -> Mejorador : run
+
+par
 
 
-Actor -> Resizing:run
-Resizing -> Container: getRandomImage
-Container --> Resizing
-alt si el contenedor no esta vacío \n la imagen ha sido mejorada 3 veces \n no ha sido ajustada \n y no esta bloqueada por otro hilo
-Resizing -> Img: setResized
-Img --> Resizing
-Resizing -> Container: imageResized
-end
+
+loop this.mejoradas < 100
+critical
+
+Mejorador -> ContenedorInicial : getImagen
+
+ContenedorInicial --> Mejorador
+
+end critical
+
+alt !this.ImagenesRevisadas[imagen.getName()]
+Mejorador -> ContenedorInicial :setImagenMejorada
+ContenedorInicial --> Mejorador
+
+end alt
+end loop
+
+end par
+
+Main -> Ajustadores : run
+par
+Ajustadores -> ContenedorInicial : getImagenesAjustadas
+ContenedorInicial --> Ajustadores
+
+loop this.ContenedorInicial.getImagenesAjustadas() < 100
+
+critical
+
+Ajustadores -> ContenedorInicial : getImagen
+ContenedorInicial --> Ajustadores
+end critical
+
+alt imagen.getImprovements() == 3 && imagen.setResize(true)
+Ajustadores  -> ContenedorInicial: setImagenAjustada
+ContenedorInicial --> Ajustadores
+end alt
+
+
+end loop
+
+
+end par
+
+Main -> Movedores : run
+par
+Movedores -> ContenedorInicial: getImagenesEliminadas
+ContenedorInicial --> Movedores
+
+loop this.ContenedorInicial.getImagenesEliminadas() < 100
+
+critical
+Movedores -> ContenedorInicial : getImagen
+ContenedorInicial --> Movedores
+end critical
+
+alt imagen.getImprovements() == 3 && imagen.getResize()
+
+critical
+Movedores -> ContenedorFinal : agregarImagen
+ContenedorFinal --> Movedores
+Movedores -> ContenedorInicial : eliminarImagen
+ContenedorInicial --> Movedores
+Movedores -> ContenedorInicial : setImagenEliminada
+ContenedorInicial --> Movedores
+end critical
+
+end alt
+
+end loop
+
+end par
 
 @enduml
