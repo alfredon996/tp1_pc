@@ -1,4 +1,9 @@
 @startuml
+
+package java.lang {
+    Interface Runnable
+}
+
 class Imagen {
 - int name
 - int improvements
@@ -69,6 +74,14 @@ class Ajustadores {
 + void run()
 }
 
+Contenedor *-- Imagen
+Proceso --o Contenedor
+
+Main -- Ajustadores
+Main -- Mejorador
+Main --Movedores
+Main -- Creador
+Main -- Log
 
 java.lang.Runnable <|.. Creador
 Proceso <|-- Creador
