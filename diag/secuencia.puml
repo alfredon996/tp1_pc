@@ -4,7 +4,11 @@
 
 autonumber
 
-Main -> Creador: run
+Main ->> Creador: run
+Main ->> Mejorador : run
+Main ->> Ajustadores : run
+Main ->> Movedores : run
+
 par
 Creador -> Imagen: <<create>>
 Creador  <-- Imagen
@@ -15,11 +19,8 @@ Creador -> ContenedorInicial : agregarImagen
 Creador <-- ContenedorInicial
 end critical
 
-end par
 
-Main -> Mejorador : run
 
-par
 
 
 
@@ -39,10 +40,8 @@ ContenedorInicial --> Mejorador
 end alt
 end loop
 
-end par
 
-Main -> Ajustadores : run
-par
+
 Ajustadores -> ContenedorInicial : getImagenesAjustadas
 ContenedorInicial --> Ajustadores
 
@@ -63,10 +62,8 @@ end alt
 end loop
 
 
-end par
 
-Main -> Movedores : run
-par
+
 Movedores -> ContenedorInicial: getImagenesEliminadas
 ContenedorInicial --> Movedores
 
